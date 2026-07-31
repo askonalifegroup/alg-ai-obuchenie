@@ -197,28 +197,30 @@
   .legend-dot.focus{background:linear-gradient(135deg,#f2b84b,#e0793a);}
   .legend-hint{font-size:12px;color:#9aa2c4;}
 
-  .cal-months{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  .cal-month{background:var(--bg-soft);border-radius:16px;padding:14px 12px 16px;}
-  .cal-month-title{font-size:12.5px;font-weight:800;color:var(--ink);margin:0 0 10px;text-align:center;text-transform:capitalize;}
-  .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px;}
-  .cal-weekdays span{text-align:center;font-size:9px;font-weight:800;color:#9aa2c4;text-transform:uppercase;}
-  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+  .cal-months{display:grid;grid-template-columns:repeat(2, 220px);gap:14px;}
+  .cal-month{background:var(--bg-soft);border-radius:12px;padding:9px 8px 10px;}
+  .cal-month-title{font-size:10.5px;font-weight:800;color:var(--ink);margin:0 0 7px;text-align:center;text-transform:capitalize;}
+  .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:3px;}
+  .cal-weekdays span{text-align:center;font-size:7px;font-weight:800;color:#9aa2c4;text-transform:uppercase;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
   .cal-day{
-    aspect-ratio:1/1;border-radius:6px;display:flex;align-items:center;justify-content:center;
-    font-size:10.5px;font-weight:700;color:#aab0cc;background:rgba(255,255,255,0.55);
+    aspect-ratio:1/1;border-radius:4px;display:flex;align-items:center;justify-content:center;
+    font-size:8.5px;font-weight:700;color:#aab0cc;background:rgba(255,255,255,0.55);
     border:none;padding:0;font-family:inherit;
   }
   .cal-day.empty{visibility:hidden;background:transparent;}
   .cal-day.has-session{
-    cursor:pointer;color:#fff;font-weight:800;font-size:11px;
+    cursor:pointer;color:#fff;font-weight:800;font-size:9px;
     transition:transform .12s ease, box-shadow .12s ease;
-    box-shadow:0 2px 6px rgba(20,30,80,0.12);
+    box-shadow:0 1px 4px rgba(20,30,80,0.12);
   }
-  .cal-day.has-session:hover{transform:scale(1.12);box-shadow:0 4px 12px rgba(20,30,80,0.22);}
+  .cal-day.has-session:hover{transform:scale(1.12);box-shadow:0 3px 8px rgba(20,30,80,0.22);}
   .cal-day.has-session.base{background:linear-gradient(135deg,var(--sky),var(--indigo));}
   .cal-day.has-session.cowork{background:linear-gradient(135deg,var(--violet),#7c4de0);}
   .cal-day.has-session.focus{background:linear-gradient(135deg,#e0793a,#f2b84b);}
-  .cal-day.has-session.multi{background:linear-gradient(135deg,var(--sky) 0 50%, #e0793a 50% 100%);}
+  .cal-day.has-session.multi-bf{background:linear-gradient(135deg,var(--sky) 0 50%, #e0793a 50% 100%);}
+  .cal-day.has-session.multi-bc{background:linear-gradient(135deg,var(--sky) 0 50%, var(--violet) 50% 100%);}
+  .cal-day.has-session.multi-cf{background:linear-gradient(135deg,var(--violet) 0 50%, #e0793a 50% 100%);}
 
   /* day detail modal */
   .day-modal-backdrop{
@@ -245,7 +247,8 @@
   .day-modal-tag.base{background:rgba(63,208,224,0.15);color:#1a9fb3;}
   .day-modal-tag.cowork{background:rgba(138,77,240,0.14);color:#7c4de0;}
   .day-modal-tag.focus{background:rgba(240,158,70,0.18);color:#c97a2e;}
-  .day-modal-session-title{font-size:14px;color:var(--body);line-height:1.45;margin:0 0 10px;}
+  .day-modal-session-title{font-size:14px;color:var(--body);line-height:1.45;margin:0 0 6px;}
+  .day-modal-trainer{font-size:12.5px;color:#9aa2c4;margin:0 0 12px;font-weight:600;}
   .day-modal-cta{
     display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:#fff;
     padding:9px 16px;border-radius:100px;
@@ -273,8 +276,8 @@
   .quick-btn.cowork{background:linear-gradient(90deg,var(--violet),#7c4de0);}
   .quick-btn.focus{background:linear-gradient(90deg,#e0793a,#f2b84b);}
 
-  @media(max-width:760px){
-    .cal-months{grid-template-columns:1fr;}
+  @media(max-width:600px){
+    .cal-months{grid-template-columns:1fr;justify-items:center;}
   }
 
   /* ================= PROGRAMS (dark) ================= */
@@ -334,7 +337,11 @@
     list-style:none;display:flex;gap:10px;font-size:14px;line-height:1.5;color:var(--body-light);
   }
   .learn-list li svg{width:17px;height:17px;flex-shrink:0;margin-top:1px;color:var(--cyan);}
-  .sess-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+  .sess-scroll{max-height:340px;overflow-y:auto;padding-right:6px;margin-bottom:14px;}
+  .sess-group{margin-bottom:16px;}
+  .sess-group:last-child{margin-bottom:0;}
+  .sess-group-title{font-size:12px;font-weight:800;color:var(--cyan);margin:0 0 8px;line-height:1.35;}
+  .sess-list{display:flex;flex-direction:column;gap:8px;margin-bottom:0;}
   .sess-row{
     display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:11px 16px;flex-wrap:wrap;
@@ -342,6 +349,7 @@
   .sess-row .sdate{font-weight:800;font-size:13.5px;color:#fff;min-width:64px;}
   .sess-row .stime{font-size:12px;color:#9aa3c9;min-width:88px;}
   .sess-row .stitle{font-size:13px;color:var(--body-light);flex:1;min-width:160px;}
+  .sess-row .strainer{font-size:12px;color:var(--body-light);flex:1;min-width:130px;}
   .prep-note-dark{
     font-size:12.5px;color:var(--body-light);background:rgba(138,77,240,0.12);
     border-left:3px solid var(--violet);padding:11px 14px;border-radius:0 10px 10px 0;margin-bottom:18px;
@@ -513,7 +521,7 @@
       <div class="glass-card g5"></div>
       <div class="glass-mark"><img src="data:image/png;base64,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" alt="ALG"></div>
       <div class="float-card">
-        <b>8 тренингов · 28 июля — 3 сентября.</b> Все встречи в Zoom, доступны в записи для всех сотрудников.
+        <b>30 дат встреч · август – декабрь 2026.</b> Все встречи в Zoom, доступны в записи для всех сотрудников.
       </div>
     </div>
   </div>
@@ -536,7 +544,7 @@
     <div class="timeline-card">
       <div class="section-eyebrow">Расписание</div>
       <h2 style="font-size:22px;font-weight:800;margin:0 0 6px;">Все потоки в календаре</h2>
-      <p style="font-size:13.5px;color:var(--body);margin:0 0 22px;">Кликните на дату с тренингом — откроется название и время встречи.</p>
+      <p style="font-size:13.5px;color:var(--body);margin:0 0 22px;">Кликните на дату с тренингом — откроется название, время и тренер.</p>
 
       <div class="legend-row">
         <div class="legend-item"><span class="legend-dot base"></span>Базовое обучение</div>
@@ -547,9 +555,12 @@
 
       <div class="cal-months">
         <div class="cal-month">
-          <div class="cal-month-title">Июль 2026</div>
+          <div class="cal-month-title">Август 2026</div>
           <div class="cal-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
           <div class="cal-grid">
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
             <div class="cal-day empty"></div>
             <div class="cal-day empty"></div>
             <div class="cal-day"><span>1</span></div>
@@ -569,7 +580,7 @@
             <div class="cal-day"><span>15</span></div>
             <div class="cal-day"><span>16</span></div>
             <div class="cal-day"><span>17</span></div>
-            <div class="cal-day"><span>18</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="18 августа" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "focus", "title": "Презентации с ИИ: GPT, Claude, Gamma и Claude Design", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">18</button>
             <div class="cal-day"><span>19</span></div>
             <div class="cal-day"><span>20</span></div>
             <div class="cal-day"><span>21</span></div>
@@ -579,50 +590,6 @@
             <div class="cal-day"><span>25</span></div>
             <div class="cal-day"><span>26</span></div>
             <div class="cal-day"><span>27</span></div>
-            <button type="button" class="cal-day has-session focus" data-date="28 июль" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "focus", "title": "Презентации с ИИ: GPT, Claude, Gamma и Claude Design"}]' onclick="openDayModal(this)">28</button>
-            <div class="cal-day"><span>29</span></div>
-            <button type="button" class="cal-day has-session base" data-date="30 июль" data-weekday="Четверг" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "GPT и Claude — универсальные инструменты для жизни и работы (день 1 из 2)"}]' onclick="openDayModal(this)">30</button>
-            <div class="cal-day"><span>31</span></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-          </div>
-        </div>
-        <div class="cal-month">
-          <div class="cal-month-title">Август 2026</div>
-          <div class="cal-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
-          <div class="cal-grid">
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day empty"></div>
-            <div class="cal-day"><span>1</span></div>
-            <div class="cal-day"><span>2</span></div>
-            <div class="cal-day"><span>3</span></div>
-            <button type="button" class="cal-day has-session multi" data-date="4 август" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "Промптинг и презентации в GPT и Claude: практикум (день 2 из 2)"}, {"time": "10:00–11:30", "cat": "focus", "title": "Работа с информацией в ИИ: NotebookLM"}]' onclick="openDayModal(this)">4</button>
-            <div class="cal-day"><span>5</span></div>
-            <div class="cal-day"><span>6</span></div>
-            <div class="cal-day"><span>7</span></div>
-            <div class="cal-day"><span>8</span></div>
-            <div class="cal-day"><span>9</span></div>
-            <div class="cal-day"><span>10</span></div>
-            <button type="button" class="cal-day has-session focus" data-date="11 август" data-weekday="Вторник" data-sessions='[{"time": "13:00–15:00", "cat": "focus", "title": "Работа с данными в ИИ: Excel и интерактивные дашборды"}]' onclick="openDayModal(this)">11</button>
-            <div class="cal-day"><span>12</span></div>
-            <div class="cal-day"><span>13</span></div>
-            <div class="cal-day"><span>14</span></div>
-            <div class="cal-day"><span>15</span></div>
-            <div class="cal-day"><span>16</span></div>
-            <div class="cal-day"><span>17</span></div>
-            <div class="cal-day"><span>18</span></div>
-            <div class="cal-day"><span>19</span></div>
-            <div class="cal-day"><span>20</span></div>
-            <div class="cal-day"><span>21</span></div>
-            <div class="cal-day"><span>22</span></div>
-            <div class="cal-day"><span>23</span></div>
-            <div class="cal-day"><span>24</span></div>
-            <div class="cal-day"><span>25</span></div>
-            <div class="cal-day"><span>26</span></div>
-            <button type="button" class="cal-day has-session cowork" data-date="27 август" data-weekday="Четверг" data-sessions='[{"time": "10:00–12:00", "cat": "cowork", "title": "Встреча 1 из 3 — онбординг и базовые элементы"}]' onclick="openDayModal(this)">27</button>
             <div class="cal-day"><span>28</span></div>
             <div class="cal-day"><span>29</span></div>
             <div class="cal-day"><span>30</span></div>
@@ -640,10 +607,10 @@
           <div class="cal-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
           <div class="cal-grid">
             <div class="cal-day empty"></div>
-            <button type="button" class="cal-day has-session cowork" data-date="1 сентябрь" data-weekday="Вторник" data-sessions='[{"time": "10:00–12:00", "cat": "cowork", "title": "Встреча 2 из 3 — разбор сценариев и автоматизация"}]' onclick="openDayModal(this)">1</button>
-            <div class="cal-day"><span>2</span></div>
-            <button type="button" class="cal-day has-session cowork" data-date="3 сентябрь" data-weekday="Четверг" data-sessions='[{"time": "10:00–12:00", "cat": "cowork", "title": "Встреча 3 из 3 — сборка персонального plugin"}]' onclick="openDayModal(this)">3</button>
-            <div class="cal-day"><span>4</span></div>
+            <button type="button" class="cal-day has-session base" data-date="1 сентября" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "GPT и Claude: универсальный инструмент для рабочих задач", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">1</button>
+            <button type="button" class="cal-day has-session focus" data-date="2 сентября" data-weekday="Среда" data-sessions='[{"time": "10:00–11:30", "cat": "focus", "title": "Работа с информацией в ИИ: NotebookLM", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">2</button>
+            <div class="cal-day"><span>3</span></div>
+            <button type="button" class="cal-day has-session multi-bf" data-date="4 сентября" data-weekday="Пятница" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "Промптинг и презентации в GPT и Claude: практикум", "trainer": "Ольга Ершова"}, {"time": "10:00–12:00", "cat": "focus", "title": "Работа с данными в ИИ: Excel и интерактивные дашборды", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">4</button>
             <div class="cal-day"><span>5</span></div>
             <div class="cal-day"><span>6</span></div>
             <div class="cal-day"><span>7</span></div>
@@ -661,6 +628,136 @@
             <div class="cal-day"><span>19</span></div>
             <div class="cal-day"><span>20</span></div>
             <div class="cal-day"><span>21</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="22 сентября" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "focus", "title": "Презентации с ИИ: GPT, Claude, Gamma и Claude Design", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">22</button>
+            <div class="cal-day"><span>23</span></div>
+            <div class="cal-day"><span>24</span></div>
+            <button type="button" class="cal-day has-session cowork" data-date="25 сентября" data-weekday="Пятница" data-sessions='[{"time": "10:00–12:00", "cat": "cowork", "title": "Claude Cowork. Встреча 1 из 3: онбординг и базовые элементы", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">25</button>
+            <div class="cal-day"><span>26</span></div>
+            <div class="cal-day"><span>27</span></div>
+            <div class="cal-day"><span>28</span></div>
+            <button type="button" class="cal-day has-session cowork" data-date="29 сентября" data-weekday="Вторник" data-sessions='[{"time": "10:00–12:30", "cat": "cowork", "title": "Claude Cowork. Встреча 2 из 3: разбор сценариев + автоматизация", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">29</button>
+            <div class="cal-day"><span>30</span></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">Октябрь 2026</div>
+          <div class="cal-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+          <div class="cal-grid">
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <button type="button" class="cal-day has-session multi-bc" data-date="1 октября" data-weekday="Четверг" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "GPT и Claude: универсальный инструмент для рабочих задач", "trainer": "Мария Уварова"}, {"time": "10:00–12:30", "cat": "cowork", "title": "Claude Cowork. Встреча 3 из 3: сборка персонального plugin", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">1</button>
+            <button type="button" class="cal-day has-session focus" data-date="2 октября" data-weekday="Пятница" data-sessions='[{"time": "10:00–12:00", "cat": "focus", "title": "Работа с данными в ИИ: Excel и интерактивные дашборды", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">2</button>
+            <div class="cal-day"><span>3</span></div>
+            <div class="cal-day"><span>4</span></div>
+            <div class="cal-day"><span>5</span></div>
+            <div class="cal-day"><span>6</span></div>
+            <div class="cal-day"><span>7</span></div>
+            <button type="button" class="cal-day has-session base" data-date="8 октября" data-weekday="Четверг" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "Промптинг и презентации в GPT и Claude: практикум", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">8</button>
+            <div class="cal-day"><span>9</span></div>
+            <div class="cal-day"><span>10</span></div>
+            <div class="cal-day"><span>11</span></div>
+            <div class="cal-day"><span>12</span></div>
+            <div class="cal-day"><span>13</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="14 октября" data-weekday="Среда" data-sessions='[{"time": "10:00–11:30", "cat": "focus", "title": "Работа с информацией в ИИ: NotebookLM", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">14</button>
+            <div class="cal-day"><span>15</span></div>
+            <div class="cal-day"><span>16</span></div>
+            <div class="cal-day"><span>17</span></div>
+            <div class="cal-day"><span>18</span></div>
+            <div class="cal-day"><span>19</span></div>
+            <div class="cal-day"><span>20</span></div>
+            <div class="cal-day"><span>21</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="22 октября" data-weekday="Четверг" data-sessions='[{"time": "10:00–13:00", "cat": "focus", "title": "Презентации с ИИ: GPT, Claude, Gamma и Claude Design", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">22</button>
+            <div class="cal-day"><span>23</span></div>
+            <div class="cal-day"><span>24</span></div>
+            <div class="cal-day"><span>25</span></div>
+            <div class="cal-day"><span>26</span></div>
+            <button type="button" class="cal-day has-session cowork" data-date="27 октября" data-weekday="Вторник" data-sessions='[{"time": "10:00–12:00", "cat": "cowork", "title": "Claude Cowork. Встреча 1 из 3: онбординг и базовые элементы", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">27</button>
+            <div class="cal-day"><span>28</span></div>
+            <button type="button" class="cal-day has-session cowork" data-date="29 октября" data-weekday="Четверг" data-sessions='[{"time": "10:00–12:30", "cat": "cowork", "title": "Claude Cowork. Встреча 2 из 3: разбор сценариев + автоматизация", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">29</button>
+            <div class="cal-day"><span>30</span></div>
+            <div class="cal-day"><span>31</span></div>
+            <div class="cal-day empty"></div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">Ноябрь 2026</div>
+          <div class="cal-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+          <div class="cal-grid">
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day"><span>1</span></div>
+            <div class="cal-day"><span>2</span></div>
+            <button type="button" class="cal-day has-session multi-bc" data-date="3 ноября" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "GPT и Claude: универсальный инструмент для рабочих задач", "trainer": "Мария Уварова"}, {"time": "10:00–12:30", "cat": "cowork", "title": "Claude Cowork. Встреча 3 из 3: сборка персонального plugin", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">3</button>
+            <div class="cal-day"><span>4</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="5 ноября" data-weekday="Четверг" data-sessions='[{"time": "10:00–12:00", "cat": "focus", "title": "Работа с данными в ИИ: Excel и интерактивные дашборды", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">5</button>
+            <div class="cal-day"><span>6</span></div>
+            <button type="button" class="cal-day has-session base" data-date="7 ноября" data-weekday="Суббота" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "Промптинг и презентации в GPT и Claude: практикум", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">7</button>
+            <div class="cal-day"><span>8</span></div>
+            <div class="cal-day"><span>9</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="10 ноября" data-weekday="Вторник" data-sessions='[{"time": "14:00–15:30", "cat": "focus", "title": "Работа с информацией в ИИ: NotebookLM", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">10</button>
+            <div class="cal-day"><span>11</span></div>
+            <div class="cal-day"><span>12</span></div>
+            <div class="cal-day"><span>13</span></div>
+            <div class="cal-day"><span>14</span></div>
+            <div class="cal-day"><span>15</span></div>
+            <div class="cal-day"><span>16</span></div>
+            <div class="cal-day"><span>17</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="18 ноября" data-weekday="Среда" data-sessions='[{"time": "10:00–13:00", "cat": "focus", "title": "Презентации с ИИ: GPT, Claude, Gamma и Claude Design", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">18</button>
+            <div class="cal-day"><span>19</span></div>
+            <div class="cal-day"><span>20</span></div>
+            <div class="cal-day"><span>21</span></div>
+            <div class="cal-day"><span>22</span></div>
+            <div class="cal-day"><span>23</span></div>
+            <button type="button" class="cal-day has-session base" data-date="24 ноября" data-weekday="Вторник" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "GPT и Claude: универсальный инструмент для рабочих задач", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">24</button>
+            <div class="cal-day"><span>25</span></div>
+            <div class="cal-day"><span>26</span></div>
+            <button type="button" class="cal-day has-session base" data-date="27 ноября" data-weekday="Пятница" data-sessions='[{"time": "10:00–13:00", "cat": "base", "title": "Промптинг и презентации в GPT и Claude: практикум", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">27</button>
+            <div class="cal-day"><span>28</span></div>
+            <div class="cal-day"><span>29</span></div>
+            <div class="cal-day"><span>30</span></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">Декабрь 2026</div>
+          <div class="cal-weekdays"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+          <div class="cal-grid">
+            <div class="cal-day empty"></div>
+            <div class="cal-day"><span>1</span></div>
+            <div class="cal-day"><span>2</span></div>
+            <div class="cal-day"><span>3</span></div>
+            <div class="cal-day"><span>4</span></div>
+            <div class="cal-day"><span>5</span></div>
+            <div class="cal-day"><span>6</span></div>
+            <div class="cal-day"><span>7</span></div>
+            <button type="button" class="cal-day has-session focus" data-date="8 декабря" data-weekday="Вторник" data-sessions='[{"time": "10:00–11:30", "cat": "focus", "title": "Работа с информацией в ИИ: NotebookLM", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">8</button>
+            <div class="cal-day"><span>9</span></div>
+            <div class="cal-day"><span>10</span></div>
+            <button type="button" class="cal-day has-session cowork" data-date="11 декабря" data-weekday="Пятница" data-sessions='[{"time": "10:00–12:00", "cat": "cowork", "title": "Claude Cowork. Встреча 1 из 3: онбординг и базовые элементы", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">11</button>
+            <div class="cal-day"><span>12</span></div>
+            <div class="cal-day"><span>13</span></div>
+            <div class="cal-day"><span>14</span></div>
+            <button type="button" class="cal-day has-session cowork" data-date="15 декабря" data-weekday="Вторник" data-sessions='[{"time": "10:00–12:30", "cat": "cowork", "title": "Claude Cowork. Встреча 2 из 3: разбор сценариев + автоматизация", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">15</button>
+            <button type="button" class="cal-day has-session focus" data-date="16 декабря" data-weekday="Среда" data-sessions='[{"time": "10:00–12:00", "cat": "focus", "title": "Работа с данными в ИИ: Excel и интерактивные дашборды", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">16</button>
+            <button type="button" class="cal-day has-session cowork" data-date="17 декабря" data-weekday="Четверг" data-sessions='[{"time": "10:00–12:30", "cat": "cowork", "title": "Claude Cowork. Встреча 3 из 3: сборка персонального plugin", "trainer": "Мария Уварова"}]' onclick="openDayModal(this)">17</button>
+            <button type="button" class="cal-day has-session focus" data-date="18 декабря" data-weekday="Пятница" data-sessions='[{"time": "10:00–13:00", "cat": "focus", "title": "Презентации с ИИ: GPT, Claude, Gamma и Claude Design", "trainer": "Ольга Ершова"}]' onclick="openDayModal(this)">18</button>
+            <div class="cal-day"><span>19</span></div>
+            <div class="cal-day"><span>20</span></div>
+            <div class="cal-day"><span>21</span></div>
             <div class="cal-day"><span>22</span></div>
             <div class="cal-day"><span>23</span></div>
             <div class="cal-day"><span>24</span></div>
@@ -670,7 +767,7 @@
             <div class="cal-day"><span>28</span></div>
             <div class="cal-day"><span>29</span></div>
             <div class="cal-day"><span>30</span></div>
-            <div class="cal-day empty"></div>
+            <div class="cal-day"><span>31</span></div>
             <div class="cal-day empty"></div>
             <div class="cal-day empty"></div>
             <div class="cal-day empty"></div>
@@ -717,10 +814,10 @@
           <div class="prog-main">
             <div class="prog-badges">
               <span class="badge-pill">Для всех сотрудников</span>
-              <span class="badge-pill">5 часов · 2 дня обучения</span>
+              <span class="badge-pill">5 часов · проводится ежемесячно</span>
             </div>
             <h3 class="prog-title">GPT и Claude: с нуля</h3>
-            <p class="prog-desc">Базовые инструменты ИИ — настройка под себя, промптинг и презентации. Два отдельных дня: 30 июля и 4 августа. Для тех, кто только начинает.</p>
+            <p class="prog-desc">Базовые инструменты ИИ — настройка под себя, промптинг и презентации. Два тренинга, оба проходят регулярно — выберите удобные даты ниже. Для тех, кто только начинает.</p>
           </div>
           <div class="summary-actions">
             <a class="quick-cta" href="https://forms.gle/p7sAP95iVcmZdcmc8" target="_blank" rel="noopener" onclick="event.stopPropagation()">
@@ -747,9 +844,25 @@
             </div>
             <div>
               <div class="prog-col-label">Даты встреч</div>
-              <div class="sess-list">
-                <div class="sess-row"><span class="sdate">30.07</span><span class="stime">10:00–13:00</span><span class="stitle">GPT и Claude — универсальные инструменты для жизни и работы</span></div>
-                <div class="sess-row"><span class="sdate">04.08</span><span class="stime">10:00–13:00</span><span class="stitle">Промптинг и презентации в GPT и Claude: практикум</span></div>
+              <div class="sess-scroll">
+                <div class="sess-group">
+                  <div class="sess-group-title">GPT и Claude: универсальный инструмент для рабочих задач · Мария Уварова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">01.09</span><span class="stime">10:00–13:00</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">01.10</span><span class="stime">10:00–13:00</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">03.11</span><span class="stime">10:00–13:00</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">24.11</span><span class="stime">10:00–13:00</span><span class="strainer">Мария Уварова</span></div>
+                  </div>
+                </div>
+                <div class="sess-group">
+                  <div class="sess-group-title">Промптинг и презентации в GPT и Claude: практикум · Ольга Ершова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">04.09</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">08.10</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">07.11</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">27.11</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                  </div>
+                </div>
               </div>
               <a class="cta-register" href="https://forms.gle/p7sAP95iVcmZdcmc8" target="_blank" rel="noopener">
                 Записаться на базовое обучение
@@ -765,10 +878,10 @@
           <div class="prog-main">
             <div class="prog-badges">
               <span class="badge-pill accent">Для руководителей</span>
-              <span class="badge-pill">3 встречи · 3 дня · по 2 часа</span>
+              <span class="badge-pill">3 встречи · 3 потока · по 2 часа</span>
             </div>
             <h3 class="prog-title">Claude Cowork</h3>
-            <p class="prog-desc">Claude становится рабочим инструментом руководителя: работает с файлами, ведёт проекты и снимает рутину. Три отдельные даты: 27 августа, 1 и 3 сентября.</p>
+            <p class="prog-desc">Claude становится рабочим инструментом руководителя: работает с файлами, ведёт проекты и снимает рутину. Проводится потоками по 3 встречи — выберите ближайший поток ниже.</p>
           </div>
           <div class="summary-actions">
             <a class="quick-cta" href="https://forms.gle/7WBE4qxLmZiAX6rY6" target="_blank" rel="noopener" onclick="event.stopPropagation()">
@@ -795,10 +908,31 @@
             </div>
             <div>
               <div class="prog-col-label">Даты встреч</div>
-              <div class="sess-list">
-                <div class="sess-row"><span class="sdate">27.08</span><span class="stime">10:00–12:00</span><span class="stitle">Встреча 1 из 3 — онбординг и базовые элементы</span></div>
-                <div class="sess-row"><span class="sdate">01.09</span><span class="stime">10:00–12:00</span><span class="stitle">Встреча 2 из 3 — разбор сценариев и автоматизация</span></div>
-                <div class="sess-row"><span class="sdate">03.09</span><span class="stime">10:00–12:00</span><span class="stitle">Встреча 3 из 3 — сборка персонального plugin</span></div>
+              <div class="sess-scroll">
+                <div class="sess-group">
+                  <div class="sess-group-title">Поток 1 · сентябрь–октябрь · Ольга Ершова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">25.09</span><span class="stime">10:00–12:00</span><span class="strainer">Встреча 1 из 3</span></div>
+                    <div class="sess-row"><span class="sdate">29.09</span><span class="stime">10:00–12:30</span><span class="strainer">Встреча 2 из 3</span></div>
+                    <div class="sess-row"><span class="sdate">01.10</span><span class="stime">10:00–12:30</span><span class="strainer">Встреча 3 из 3</span></div>
+                  </div>
+                </div>
+                <div class="sess-group">
+                  <div class="sess-group-title">Поток 2 · октябрь–ноябрь · Ольга Ершова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">27.10</span><span class="stime">10:00–12:00</span><span class="strainer">Встреча 1 из 3</span></div>
+                    <div class="sess-row"><span class="sdate">29.10</span><span class="stime">10:00–12:30</span><span class="strainer">Встреча 2 из 3</span></div>
+                    <div class="sess-row"><span class="sdate">03.11</span><span class="stime">10:00–12:30</span><span class="strainer">Встреча 3 из 3</span></div>
+                  </div>
+                </div>
+                <div class="sess-group">
+                  <div class="sess-group-title">Поток 3 · декабрь · Мария Уварова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">11.12</span><span class="stime">10:00–12:00</span><span class="strainer">Встреча 1 из 3</span></div>
+                    <div class="sess-row"><span class="sdate">15.12</span><span class="stime">10:00–12:30</span><span class="strainer">Встреча 2 из 3</span></div>
+                    <div class="sess-row"><span class="sdate">17.12</span><span class="stime">10:00–12:30</span><span class="strainer">Встреча 3 из 3</span></div>
+                  </div>
+                </div>
               </div>
               <div class="prep-note-dark">Перед стартом: желательно оформить подписку Claude Pro и установить Claude Desktop (на рабочий ПК — через заявку в Директум на ИТ). На регистрацию и «прогрев» аккаунта закладывайте минимум 2 дня.</div>
               <a class="cta-register" href="https://forms.gle/7WBE4qxLmZiAX6rY6" target="_blank" rel="noopener">
@@ -815,10 +949,10 @@
           <div class="prog-main">
             <div class="prog-badges">
               <span class="badge-pill">Расширенный уровень</span>
-              <span class="badge-pill">6,5 часов · 3 дня</span>
+              <span class="badge-pill">6,5 часов · проводится ежемесячно</span>
             </div>
             <h3 class="prog-title">Фокусное обучение</h3>
-            <p class="prog-desc">Углублённая работа с презентациями, источниками и данными — Gamma, Claude Design, NotebookLM, Excel-дашборды. Три отдельных дня: 28 июля, 4 и 11 августа.</p>
+            <p class="prog-desc">Углублённая работа с презентациями, источниками и данными — Gamma, Claude Design, NotebookLM, Excel-дашборды. Каждый тренинг проходит отдельно и повторяется ежемесячно — выберите дату ниже.</p>
           </div>
           <div class="summary-actions">
             <a class="quick-cta" href="https://forms.gle/fsbLYq9Tk9iCmh1e9" target="_blank" rel="noopener" onclick="event.stopPropagation()">
@@ -845,10 +979,35 @@
             </div>
             <div>
               <div class="prog-col-label">Даты встреч</div>
-              <div class="sess-list">
-                <div class="sess-row"><span class="sdate">28.07</span><span class="stime">10:00–13:00</span><span class="stitle">Презентации с ИИ: GPT, Claude, Gamma и Claude Design</span></div>
-                <div class="sess-row"><span class="sdate">04.08</span><span class="stime">10:00–11:30</span><span class="stitle">Работа с информацией в ИИ: NotebookLM</span></div>
-                <div class="sess-row"><span class="sdate">11.08</span><span class="stime">13:00–15:00</span><span class="stitle">Работа с данными в ИИ: Excel и интерактивные дашборды</span></div>
+              <div class="sess-scroll">
+                <div class="sess-group">
+                  <div class="sess-group-title">Презентации с ИИ: GPT, Claude, Gamma и Claude Design · Ольга Ершова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">18.08</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">22.09</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">22.10</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">18.11</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                    <div class="sess-row"><span class="sdate">18.12</span><span class="stime">10:00–13:00</span><span class="strainer">Ольга Ершова</span></div>
+                  </div>
+                </div>
+                <div class="sess-group">
+                  <div class="sess-group-title">Работа с информацией в ИИ: NotebookLM · Мария Уварова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">02.09</span><span class="stime">10:00–11:30</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">14.10</span><span class="stime">10:00–11:30</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">10.11</span><span class="stime">14:00–15:30</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">08.12</span><span class="stime">10:00–11:30</span><span class="strainer">Мария Уварова</span></div>
+                  </div>
+                </div>
+                <div class="sess-group">
+                  <div class="sess-group-title">Работа с данными в ИИ: Excel и интерактивные дашборды · Мария Уварова</div>
+                  <div class="sess-list">
+                    <div class="sess-row"><span class="sdate">04.09</span><span class="stime">10:00–12:00</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">02.10</span><span class="stime">10:00–12:00</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">05.11</span><span class="stime">10:00–12:00</span><span class="strainer">Мария Уварова</span></div>
+                    <div class="sess-row"><span class="sdate">16.12</span><span class="stime">10:00–12:00</span><span class="strainer">Мария Уварова</span></div>
+                  </div>
+                </div>
               </div>
               <a class="cta-register" href="https://forms.gle/fsbLYq9Tk9iCmh1e9" target="_blank" rel="noopener">
                 Записаться на фокусное обучение
@@ -1033,6 +1192,7 @@
           '<span class="day-modal-tag ' + s.cat + '">' + TAG_LABEL[s.cat] + '</span>' +
         '</div>' +
         '<p class="day-modal-session-title">' + s.title + '</p>' +
+        '<p class="day-modal-trainer">Тренер: ' + s.trainer + '</p>' +
         '<a class="day-modal-cta ' + s.cat + '" href="' + FORM_LINK[s.cat] + '" target="_blank" rel="noopener">Записаться ↗</a>' +
       '</div>';
     });
