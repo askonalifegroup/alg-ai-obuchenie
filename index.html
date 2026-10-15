@@ -595,6 +595,41 @@
   @keyframes mcPulse{0%{outline-color:rgba(138,77,240,.9);}100%{outline-color:rgba(138,77,240,0);outline-offset:18px;}}
   @media(max-width:600px){#mascot{width:84px;left:10px;}#mascot .mc-body{width:84px;}.mc-bubble{left:40px;bottom:80px;max-width:210px;font-size:13px;}}
   @media(prefers-reduced-motion:reduce){#mascot,.mc-bubble{transition:opacity .2s !important;}#mascot.show .mc-body,#mascot.show .mc-arm,.mc-eye,.mc-tip{animation:none !important;}}
+
+  /* ===== MASCOT: actions + drag ===== */
+  #mascot .mc-body{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;}
+  #mascot.free{transform:none !important;transition:none;}
+  #mascot.free .mc-body{animation:none;}
+  #mascot.dragging .mc-body{cursor:grabbing;filter:drop-shadow(0 22px 22px rgba(30,30,100,.3));}
+  #mascot.drop .mc-body{animation:mcDrop .5s cubic-bezier(.3,1.6,.5,1);}
+  @keyframes mcDrop{0%{transform:scale(1.1,.9);}50%{transform:scale(.94,1.08);}100%{transform:none;}}
+  .mc-bubble{transition:opacity .3s ease,transform .35s cubic-bezier(.3,1.4,.5,1);}
+  #mascot.flip-x .mc-bubble{left:auto;right:62px;border-radius:18px 18px 4px 18px;transform-origin:100% 100%;}
+  #mascot.flip-y .mc-bubble{bottom:auto;top:104px;border-radius:4px 18px 18px 18px;transform-origin:0 0;}
+  #mascot.flip-x.flip-y .mc-bubble{border-radius:18px 4px 18px 18px;transform-origin:100% 0;}
+  /* scenarios */
+  #mascot.act-wave .mc-arm{animation:mcWaveBig .45s ease-in-out 7 !important;}
+  @keyframes mcWaveBig{0%,100%{transform:rotate(-25deg);}50%{transform:rotate(45deg);}}
+  #mascot.act-wave .mc-body{animation:mcLean 3.2s ease-in-out !important;}
+  @keyframes mcLean{0%,100%{transform:rotate(0);}20%,80%{transform:rotate(-7deg);}}
+  #mascot.act-dance .mc-body{animation:mcDance .6s ease-in-out 6 !important;}
+  @keyframes mcDance{
+    0%,100%{transform:translateY(0) rotate(-9deg) scale(1.03,.97);}
+    25%{transform:translateY(-14px) rotate(0) scale(.97,1.05);}
+    50%{transform:translateY(0) rotate(9deg) scale(1.03,.97);}
+    75%{transform:translateY(-14px) rotate(0) scale(.97,1.05);}
+  }
+  #mascot.act-dance .mc-arm{animation:mcWaveBig .3s ease-in-out 12 !important;}
+  #mascot.act-spin .mc-body{animation:mcSpin 1.1s cubic-bezier(.3,.9,.4,1) both !important;}
+  @keyframes mcSpin{0%{transform:translateY(0) rotate(0);}40%{transform:translateY(-34px) rotate(200deg);}100%{transform:translateY(0) rotate(360deg);}}
+  #mascot.act-turn .mc-body{animation:mcTurn 1.6s ease-in-out both !important;}
+  @keyframes mcTurn{0%{transform:perspective(500px) rotateY(0);}50%{transform:perspective(500px) rotateY(180deg) translateY(-6px);}100%{transform:perspective(500px) rotateY(360deg);}}
+  #mascot.act-think .mc-pupil{animation:mcOrbit 1s linear infinite;}
+  #mascot.act-think .mc-tip{animation-duration:.35s;}
+  #mascot.act-think .mc-body{animation:mcShake .25s linear 8 !important;}
+  @keyframes mcOrbit{0%{transform:translate(4px,0);}25%{transform:translate(0,4px);}50%{transform:translate(-4px,0);}75%{transform:translate(0,-4px);}100%{transform:translate(4px,0);}}
+  @keyframes mcShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-2px);}75%{transform:translateX(2px);}}
+  @media(prefers-reduced-motion:reduce){#mascot[class*="act-"] .mc-body,#mascot[class*="act-"] .mc-arm,#mascot[class*="act-"] .mc-pupil{animation:none !important;}}
 </style>
 </head>
 <body>
@@ -1468,10 +1503,12 @@
         t.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});if(sel.indexOf('#')!==0||sel.indexOf(' ')>0){
           document.querySelectorAll(sel).forEach(function(x,i){if(i<4){x.classList.add('mc-pulse');setTimeout(function(){x.classList.remove('mc-pulse');},4000);}});}};
       txt.appendChild(document.createElement('br'));txt.appendChild(a);}
-    m.classList.add('show','talk');clearTimeout(hideT);
+    m.classList.add('show','talk');reposBubble();clearTimeout(hideT);
     hideT=setTimeout(hide,sel?9000:6500);shown++;last=Date.now();
   }
-  function hide(){m.classList.remove('talk');setTimeout(function(){m.classList.remove('show');},900);}
+  function hide(){m.classList.remove('talk');if(m.classList.contains('free'))return;setTimeout(function(){m.classList.remove('show');},900);}
+  function reposBubble(){var r=m.getBoundingClientRect();
+    m.classList.toggle('flip-x',r.left+62+260>innerWidth);m.classList.toggle('flip-y',r.top<150);}
   function tipFor(k){var t=tips[k];if(!t)return;say(t[0],t[1],t[2]);}
   setTimeout(function(){tipFor('hero');},4500);
   var map=[['.hero','hero'],['.about','about'],['#timeline','timeline'],['#programs','programs'],['#wiki','wiki'],['#rules','rules'],['#outside','outside']];
@@ -1483,11 +1520,56 @@
     });},{threshold:.45});
     map.forEach(function(p){var el=document.querySelector(p[0]);if(el){el.dataset.mc=p[1];io.observe(el);}});
   }
-  body.addEventListener('click',function(){
-    m.classList.add('wiggle');setTimeout(function(){m.classList.remove('wiggle');},650);
-    if(m.classList.contains('talk')&&Math.random()<.35){tipFor(cur);return;}
-    say(jokes[ji++%jokes.length]);
+  // ---- scenarios on click ----
+  var acts=['wave','dance','spin','turn','think'],lastAct='',actT,cnt;
+  function runAct(){
+    var a;do{a=acts[Math.floor(Math.random()*acts.length)];}while(a===lastAct);lastAct=a;
+    acts.forEach(function(x){m.classList.remove('act-'+x);});clearTimeout(actT);clearInterval(cnt);
+    void m.offsetWidth;m.classList.add('act-'+a);
+    var dur=3300;
+    if(a==='wave')say('Приветик! 👋 Рад, что ты здесь.');
+    if(a==='dance'){say('Танцуем! 💃 <code>prompt</code> – в такт.');dur=3900;}
+    if(a==='spin'){say('Wheee! Контекстное окно – ровно 360°.');dur=1300;}
+    if(a==='turn'){say('Вид сзади. Весов не видно – они секретные.');dur=1800;}
+    if(a==='think'){var n=0,goal=800+Math.floor(Math.random()*9000);say('Считаю <code>tokens</code>… <code id="mcCnt">0</code>');dur=2300;
+      var t0=Date.now();cnt=setInterval(function(){var p=Math.min((Date.now()-t0)/1700,1);n=Math.round(goal*p);var el=document.getElementById('mcCnt');
+        if(el)el.textContent=n.toLocaleString('ru-RU');if(p>=1){clearInterval(cnt);if(el)el.parentNode.innerHTML='Насчитал <code>'+n.toLocaleString('ru-RU')+'</code> tokens. Многовато!';}},60);}
+    actT=setTimeout(function(){m.classList.remove('act-'+a);},dur);
+  }
+  // ---- drag & click ----
+  var drag=null,POS_KEY='mcPos';
+  function clampPos(x,y){var w=m.offsetWidth||110,h=body.getBoundingClientRect().height||124;
+    return [Math.max(4,Math.min(innerWidth-w-4,x)),Math.max(4,Math.min(innerHeight-h-4,y))];}
+  function setPos(x,y){var c=clampPos(x,y);m.style.left=c[0]+'px';m.style.top=c[1]+'px';m.style.bottom='auto';return c;}
+  function goFree(){if(m.classList.contains('free'))return;var r=body.getBoundingClientRect();m.classList.add('free','show');setPos(r.left,r.top);}
+  body.addEventListener('pointerdown',function(e){
+    if(e.button&&e.button!==0)return;
+    var r=body.getBoundingClientRect();drag={sx:e.clientX,sy:e.clientY,ox:e.clientX-r.left,oy:e.clientY-r.top,moved:false,lx:e.clientX};
+    try{body.setPointerCapture(e.pointerId);}catch(x){}
   });
+  body.addEventListener('pointermove',function(e){
+    if(!drag)return;
+    if(!drag.moved){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;drag.moved=true;
+      acts.forEach(function(x){m.classList.remove('act-'+x);});clearInterval(cnt);
+      goFree();m.classList.add('dragging');
+      if(!window.__mcDragged){window.__mcDragged=1;say('Ой! Полетели! 🚀');}}
+    setPos(e.clientX-drag.ox,e.clientY-drag.oy);reposBubble();
+    var vx=e.clientX-drag.lx;drag.lx=e.clientX;
+    body.style.transform='rotate('+Math.max(-18,Math.min(18,vx*1.6))+'deg)';
+  });
+  function endDrag(e){
+    if(!drag)return;var d=drag;drag=null;
+    try{body.releasePointerCapture(e.pointerId);}catch(x){}
+    body.style.transform='';
+    if(d.moved){m.classList.remove('dragging');m.classList.add('drop');setTimeout(function(){m.classList.remove('drop');},520);
+      var r=body.getBoundingClientRect();try{sessionStorage.setItem(POS_KEY,JSON.stringify([r.left,r.top]));}catch(x){}
+      say('Тут уютно. Кликни по мне – покажу фокус.');
+    }else{runAct();}
+  }
+  body.addEventListener('pointerup',endDrag);
+  body.addEventListener('pointercancel',endDrag);
+  try{var sp=JSON.parse(sessionStorage.getItem(POS_KEY)||'null');if(sp){m.classList.add('free','show');setPos(sp[0],sp[1]);}}catch(x){}
+  addEventListener('resize',function(){if(m.classList.contains('free')){var r=body.getBoundingClientRect();setPos(r.left,r.top);reposBubble();}});
   document.getElementById('mcX').addEventListener('click',function(){off=true;hide();try{sessionStorage.setItem('mcOff','1');}catch(e){}setTimeout(function(){m.remove();},1200);});
   if(!rm){var p1=document.getElementById('mcP1'),p2=document.getElementById('mcP2');
     addEventListener('mousemove',function(e){var r=body.getBoundingClientRect();var cx=r.left+r.width/2,cy=r.top+r.height*.45;
