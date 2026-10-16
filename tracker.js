@@ -41,7 +41,7 @@
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(sc);}},{passive:true});
   /* просмотры разделов */
   if('IntersectionObserver' in window){
-    var secs=[['.hero','hero'],['.about','about'],['#timeline','timeline'],['#programs','programs'],['#rules','rules'],['#wiki','wiki_block'],['#outside','outside'],['#footer','footer']],sv={};
+    var secs=[['.hero','hero'],['.about','about'],['#timeline','timeline'],['#programs','programs'],['#rules','rules'],['#wiki','wiki_block'],['#digest','digest'],['#outside','outside'],['#footer','footer']],sv={};
     var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&en.intersectionRatio>=.3){var k=en.target.dataset.trk;if(!sv[k]){sv[k]=1;ev('section',k);}}});},{threshold:[.3]});
     secs.forEach(function(x){var el=document.querySelector(x[0]);if(el){el.dataset.trk=x[1];io.observe(el);}});
   }
@@ -54,6 +54,7 @@
     if(a&&href.indexOf('mailto:')===0){ev('click','email');return;}
     if(a&&href.indexOf('tel:')===0){ev('click','phone');return;}
     if(a&&href.indexOf('wiki.html')>-1){ev('click','to_wiki');return;}
+    if(a&&href.indexOf('ai-digest')>-1){ev('click','to_digest');return;}
     if(a&&/alg-ai-obuchenie|index\.html/.test(href)){ev('click','to_landing');return;}
     if(a&&href.charAt(0)==='#'&&a.closest('.main-nav'))ev('click','nav'+href);
     var day=t.closest('.cal-day.has-session');if(day){ev('click','calendar_day',day.textContent.trim());return;}
